@@ -1,0 +1,443 @@
+/* Aktiv Grotesk – served from /public/fonts */
+@font-face {
+  font-family: "Aktiv Grotesk";
+  src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-Regular.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aktiv Grotesk";
+  src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-Italic.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aktiv Grotesk";
+  src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-Medium.ttf")
+    format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aktiv Grotesk";
+  src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-Light.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aktiv Grotesk";
+  src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-Bold.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aktiv Grotesk";
+  src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-BoldItalic.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+/* Add other weights (Thin, XBold, Black…) the same way if you’ll use them */
+
+:root {
+  /* Base */
+  --ink: #0a0b10;
+  --text: #e8ebf0;
+  --muted: #a8b0c0;
+
+  /* Spacing & layout */
+  --max: 1200px;
+  --gutter: 24px;
+  --radius: 14px;
+  --space-xl: 120px;
+  --space-lg: 88px;
+  --space-md: 56px;
+  --space-sm: 28px;
+
+  /* Brand */
+  --brand-dark: #373737;
+  --brand-purple: #9929ea;
+  --brand-blue: #5808fb;
+
+  /* UI */
+  --ring: rgba(255, 255, 255, 0.1);
+  --card: rgba(255, 255, 255, 0.05);
+
+  /* Gradients */
+  --brand-gradient: linear-gradient(
+    90deg,
+    var(--brand-purple),
+    var(--brand-blue)
+  );
+  --brand-bg-gradient: linear-gradient(
+    180deg,
+    rgba(153, 41, 234, 0.16) 0%,
+    rgba(88, 8, 251, 0.12) 28%,
+    rgba(10, 11, 16, 1) 70%
+  );
+
+  /* Light theme */
+  --light-bg: #ffffff;
+  --light-ink: #0e0f14;
+  --light-muted: #6b7280;
+  --light-ring: rgba(0, 0, 0, 0.08);
+  --light-card: #ffffff;
+
+  --nav-h: 64px; /* matches .nav__row height */
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: "Aktiv Grotesk", Inter, ui-sans-serif, system-ui, -apple-system,
+    Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.section {
+  padding: var(--space-lg) 0;
+}
+.section--tight {
+  padding: var(--space-md) 0;
+}
+.section--divider {
+  border-top: 1px solid var(--ring);
+}
+
+.section-dark {
+  background-color: var(--brand-dark);
+  color: #fff;
+}
+
+.accent-text {
+  color: var(--brand-purple);
+}
+
+.heading-xl {
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.08;
+  font-weight: 800;
+  margin: 0;
+}
+.heading-lg {
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.12;
+  font-weight: 800;
+  margin: 0;
+}
+.heading-md {
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 700;
+  margin: 0;
+}
+.subtle {
+  color: var(--muted);
+}
+.lead {
+  font-size: 18px;
+  color: #cfd5e0;
+  max-width: 680px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  border: none;
+}
+
+.btn--primary {
+  background: var(--brand-gradient);
+  color: #fff;
+  background-clip: border-box;
+  transition: opacity 0.2s ease-in-out;
+}
+.btn--primary:hover {
+  opacity: 0.9;
+}
+.btn--ghost {
+  border-color: var(--ring);
+  color: #fff;
+  background: transparent;
+}
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--ring);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+.card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.grid {
+  display: grid;
+  gap: 22px;
+}
+.grid-2 {
+  grid-template-columns: 1fr;
+}
+.grid-3 {
+  grid-template-columns: 1fr;
+}
+.grid-5 {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 860px) {
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 980px) {
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid-5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--ring);
+  background: rgba(0, 0, 0, 0.35);
+}
+.nav__row {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav a {
+  color: #d0d6e4;
+  text-decoration: none;
+  font-size: 14px;
+}
+.nav a:hover {
+  color: #fff;
+}
+.nav__links {
+  display: none;
+  gap: 28px;
+}
+@media (min-width: 900px) {
+  .nav__links {
+    display: flex;
+  }
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: calc(100vh - var(--nav-h)); /* full viewport minus sticky nav */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  /* keep a little breathing room without exceeding 100vh */
+  padding-block: clamp(16px, 4vh, 32px) 0; /* top padding only, no bottom */
+}
+.hero__bg {
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1; /* <-- key: push behind */
+    pointer-events: none;
+
+    /* your metlabs-like gradient */
+    background: linear-gradient(
+      180deg,
+      rgba(10, 11, 16, 1) 0%,
+      rgba(25, 8, 51, 1) 25%,
+      rgba(88, 8, 251, 0.6) 70%,
+      rgba(153, 41, 234, 0.75) 100%
+    );
+  }
+}
+
+.hero__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    60% 80% at 50% 100%,
+    rgba(153, 41, 234, 0.4),
+    transparent 80%
+  );
+}
+
+.logo-pill {
+  height: 40px;
+  border: 1px solid var(--ring);
+  border-radius: 10px;
+  background: var(--card);
+  display: grid;
+  place-items: center;
+  color: #b9c2d4;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  border: 1px solid var(--ring);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-radius: 8px;
+  padding: 14px 16px;
+  outline: none;
+}
+.form input::placeholder,
+.form textarea::placeholder {
+  color: #9aa3b5;
+}
+.form input:focus,
+.form textarea:focus {
+  box-shadow: 0 0 0 2px rgba(153, 41, 234, 0.35); /* purple glow */
+}
+
+.footer {
+  border-top: 1px solid var(--ring);
+  background: rgba(0, 0, 0, 0.35);
+}
+.footer__row {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+@media (min-width: 900px) {
+  .footer__row {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+.footer a {
+  color: #cbd3e2;
+  text-decoration: none;
+}
+.footer a:hover {
+  color: #fff;
+}
+
+/* ==== Products carousel (Embla) ==== */
+.embla {
+  position: relative;
+}
+
+.embla__viewport {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  gap: 22px; /* matches your grid gap */
+}
+
+.embla__slide {
+  flex: 0 0 85%;
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .embla__slide {
+    /* show 3 cards per view on desktop */
+    flex: 0 0 calc((100% - 2 * 22px) / 3);
+  }
+}
+
+/* Make product cards stretch and look like your grid cards */
+.card--product {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Arrows */
+.embla__prev,
+.embla__next {
+  position: absolute;
+  top: -56px; /* put arrows in the header area; tweak if you prefer inline */
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.embla__prev {
+  right: 64px;
+}
+.embla__next {
+  right: 16px;
+}
+
+/* Dots */
+.embla__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.embla__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--ring);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.embla__dot--active {
+  background: var(--brand-purple);
+}
