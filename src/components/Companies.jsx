@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Companies() {
   return (
-    <section id="companies" className="section section--divider">
+    <section id="companies" className="section">
       <div className="container">
         {/* Section Title */}
         <h2 className="heading-lg">Blockchain para Empresas</h2>

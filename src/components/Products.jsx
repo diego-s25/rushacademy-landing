@@ -62,7 +62,7 @@ export default function Products() {
   return (
     <section id="products" className="section">
       <div className="container">
-        <h2 className="heading-xl">Nuestros Productos</h2>
+        <h2 className="heading-lg">Nuestros Productos</h2>
         <p className="lead" style={{ marginTop: 12 }}>
           Tecnología y soluciones blockchain diseñadas para individuos,
           inversionistas y empresas.

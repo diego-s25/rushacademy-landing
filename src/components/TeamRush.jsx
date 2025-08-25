@@ -193,7 +193,7 @@ export default function TeamRush() {
   );
 
   return (
-    <section id="team" className="section section--divider">
+    <section id="team" className="section">
       <div className="container">
         <h2 className="heading-lg">Team Rush</h2>
         <p className="lead" style={{ marginTop: 10 }}>

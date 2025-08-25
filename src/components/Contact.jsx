@@ -9,7 +9,7 @@ export default function Contact() {
     ["Sun", "Closed"],
   ];
   return (
-    <section id="contact" className="section section--divider">
+    <section id="contact" className="section">
       <div className="container">
         <h2 className="heading-lg">Contact</h2>
         <p className="lead" style={{ marginTop: 12 }}>

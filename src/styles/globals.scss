@@ -99,11 +99,20 @@
 * {
   box-sizing: border-box;
 }
+
 html,
-body,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden; /* no horizontal scroll unless intended */
+  overflow-y: hidden; /* disable vertical scroll */
+}
+
 #root {
   height: 100%;
 }
+
 html {
   scroll-behavior: smooth;
 }
@@ -125,9 +134,37 @@ img {
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
+/* Full-viewport is controlled by .panel, not .section */
 .section {
-  padding: var(--space-lg) 0;
+  /* reset the “tall & centered” layout */
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  display: block; /* no flex centering here */
 }
+
+/* Panels are the full-page slides */
+.panel {
+  flex: 0 0 100vw;
+  height: calc(100vh - var(--nav-h));
+  scroll-snap-align: start;
+  position: relative;
+  isolation: isolate;
+
+  /* Align content to the top of the viewport */
+  display: flex;
+  align-items: flex-start;
+}
+
+/* The section inside each panel should fill the panel and have top padding */
+.panel > .section {
+  width: 100%;
+  height: 100%;
+  padding-top: clamp(24px, 6vh, 64px); /* adjust to taste */
+  padding-bottom: clamp(16px, 4vh, 32px);
+}
+
 .section--tight {
   padding: var(--space-md) 0;
 }
@@ -243,10 +280,8 @@ img {
 .nav {
   position: sticky;
   top: 0;
-  z-index: 50;
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--ring);
-  background: rgba(0, 0, 0, 0.35);
+  width: 100%;
+  z-index: 1000;
 }
 .nav__row {
   height: var(--nav-h);
@@ -254,22 +289,68 @@ img {
   align-items: center;
   justify-content: space-between;
 }
-.nav a {
+/* Style both anchors and our button links the same */
+.nav a,
+.nav__link {
   color: #d0d6e4;
   text-decoration: none;
   font-size: 14px;
 }
-.nav a:hover {
+
+/* Reset default button look and keep your pill design */
+.nav__link {
+  background: transparent; /* remove default gray button bg */
+  border: none; /* remove default button border  */
+  appearance: none; /* reset native button styling   */
+  -webkit-appearance: none;
+  font: inherit;
+  line-height: 1;
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease, box-shadow 200ms ease;
+}
+
+.nav__link:hover {
   color: #fff;
 }
-.nav__links {
-  display: none;
-  gap: 28px;
+
+/* Your existing active pill/glow/underline will now apply to buttons too */
+.nav__link.is-active {
+  color: #fff;
+  background: color-mix(in srgb, var(--brand-purple) 16%, transparent);
+  box-shadow: inset 0 0 0 1px var(--ring), 0 8px 24px rgba(153, 41, 234, 0.22);
 }
-@media (min-width: 900px) {
-  .nav__links {
-    display: flex;
-  }
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--brand-gradient);
+  opacity: 0;
+  transform: scaleX(0.4) translateZ(0);
+  transform-origin: center;
+  transition: opacity 220ms ease, transform 240ms ease;
+}
+.nav__link.is-active::after {
+  opacity: 1;
+  transform: scaleX(1) translateZ(0);
+}
+
+/* Keep the row layout tight */
+.nav__row {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav__links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
 .hero {
@@ -440,4 +521,73 @@ img {
 
 .embla__dot--active {
   background: var(--brand-purple);
+}
+
+/* ===== Horizontal pager ===== */
+.hscroll {
+  /* takes the viewport below the sticky nav */
+  height: calc(100vh - var(--nav-h));
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  gap: 0; /* panels touch each other */
+
+  /* Avoid accidental text selection while “paging” */
+  user-select: none;
+}
+
+.panel {
+  flex: 0 0 100vw;
+  height: calc(100vh - var(--nav-h));
+  scroll-snap-align: start;
+  position: relative;
+  isolation: isolate; /* keeps your hero bg layering working */
+  display: block; /* each panel can hold a normal .section layout */
+}
+
+/* Let panels carry your existing section paddings */
+.panel .section {
+  padding-top: clamp(16px, 4vh, 32px);
+  padding-bottom: clamp(16px, 4vh, 32px);
+}
+
+/* Dots (if you want them) */
+.hscroll__dots {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 60;
+}
+.hscroll__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: none;
+  background: var(--ring);
+  cursor: pointer;
+}
+.hscroll__dot.is-active {
+  background: var(--brand-purple);
+}
+
+/* ===== Mobile fallback: go back to vertical ===== */
+@media (max-width: 1024px) {
+  .hscroll {
+    height: auto;
+    overflow: visible;
+    display: block;
+    scroll-snap-type: none;
+  }
+  .panel {
+    flex: none;
+    width: 100%;
+    height: auto;
+    scroll-snap-align: unset;
+  }
 }
