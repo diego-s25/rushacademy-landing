@@ -4,26 +4,37 @@ export default function HorizontalPager({ ids = [], children }) {
   const wrapRef = useRef(null);
   const [active, setActive] = useState(ids?.[0] || "");
 
-  // Convert vertical wheel to horizontal scroll
-  useEffect(() => {
+  const onWheel = (e) => {
     const el = wrapRef.current;
     if (!el) return;
+    // Allow native vertical scroll on mobile
+    const isMobile = window.matchMedia("(max-width: 1024px)").matches;
+    if (isMobile) return;
 
-    const onWheel = (e) => {
-      // Allow native vertical scroll on mobile / fallback mode
-      const isMobile = window.matchMedia("(max-width: 1024px)").matches;
-      if (isMobile) return;
-
-      // Horizontal paging with wheel
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        e.preventDefault();
-        el.scrollLeft += e.deltaY;
+    // If the wheel is over a panel that can scroll vertically in this direction,
+    // let it handle the event (don't convert to horizontal).
+    const panel = e.target.closest(".panel");
+    if (panel) {
+      const canScrollY = panel.scrollHeight > panel.clientHeight;
+      if (canScrollY) {
+        const atTop = panel.scrollTop <= 0;
+        const atBottom =
+          panel.scrollTop + panel.clientHeight >= panel.scrollHeight - 1;
+        const goingUp = e.deltaY < 0;
+        const goingDown = e.deltaY > 0;
+        // When not at an edge in the direction we're going, let the panel scroll.
+        if ((goingUp && !atTop) || (goingDown && !atBottom)) {
+          return; // do not preventDefault; native vertical scroll proceeds
+        }
       }
-    };
+    }
 
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
-  }, []);
+    // Otherwise, translate vertical wheel into horizontal paging.
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      e.preventDefault();
+      el.scrollLeft += e.deltaY;
+    }
+  };
 
   // Observe panels to update active link
   useEffect(() => {
@@ -75,7 +86,7 @@ export default function HorizontalPager({ ids = [], children }) {
 
   return (
     <>
-      <div ref={wrapRef} className="hscroll" id="hscroll">
+      <div ref={wrapRef} className="hscroll" id="hscroll" onWheel={onWheel}>
         {children}
       </div>
 

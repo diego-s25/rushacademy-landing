@@ -1,10 +1,20 @@
+import { useEffect, useState } from "react";
+
 export default function Nav() {
-  const go = (id) => {
-    if (window.__scrollToPanel) window.__scrollToPanel(id);
-  };
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onS = () => setScrolled(window.scrollY > 6);
+    onS();
+    window.addEventListener("scroll", onS);
+    return () => window.removeEventListener("scroll", onS);
+  }, []);
 
   return (
-    <header className="nav" /* ... */>
+    <header
+      className="nav"
+      style={{ background: scrolled ? "rgba(0,0,0,.45)" : "rgba(0,0,0,.30)" }}
+    >
       <div className="container nav__row">
         <a
           href="#top"
@@ -12,24 +22,28 @@ export default function Nav() {
         >
           <img
             src="https://firebasestorage.googleapis.com/v0/b/spranger-ventures.appspot.com/o/CryptoRush%2Fcryptorush_logo.png?alt=media&token=28dd84d1-4d99-483e-b9f5-9048d867b480"
-            alt="CryptoRush Logo"
-            style={{ height: 32, width: "auto", display: "block" }}
+            alt="CryptoRush logo"
+            style={{ height: 28 }}
           />
+          {/* <strong style={{ color: "#fff" }}>CryptoRush</strong> */}
         </a>
+
         <nav className="nav__links">
-          <button className="nav__link" onClick={() => go("products")}>
-            Productos
-          </button>
-          <button className="nav__link" onClick={() => go("companies")}>
-            Empresas
-          </button>
-          <button className="nav__link" onClick={() => go("team")}>
-            Team Rush
-          </button>
-          <button className="nav__link" onClick={() => go("contact")}>
-            Contacto
-          </button>
+          <a href="#products">Productos &amp; Servicios</a>
+          <a href="#companies">Empresas</a>
+          <a href="#academy">Academy</a>
+          <a href="#team">Team Rush</a>
+          <a href="#contact">Contacto</a>
         </nav>
+
+        <a
+          href="#contact"
+          className="btn btn--primary"
+          style={{ display: "none" }}
+          aria-hidden
+        >
+          Get in touch
+        </a>
       </div>
     </header>
   );

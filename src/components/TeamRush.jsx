@@ -193,24 +193,22 @@ export default function TeamRush() {
   );
 
   return (
-    <section id="team" className="section">
-      <div className="container">
-        <h2 className="heading-lg">Team Rush</h2>
-        <p className="lead" style={{ marginTop: 10 }}>
-          Our global team of experts.
-        </p>
+    <section id="team" className="container">
+      <h2 className="heading-lg">Team Rush</h2>
+      <p className="lead" style={{ marginTop: 10 }}>
+        Our global team of experts.
+      </p>
 
-        {groups.map((g) => (
-          <div key={g.title} style={{ marginTop: 28 }}>
-            <h3 className="heading-md">{g.title}</h3>
-            <div className="grid grid-3" style={{ marginTop: 16 }}>
-              {g.people.map((p) => (
-                <Card key={p.name} person={p} />
-              ))}
-            </div>
+      {groups.map((g) => (
+        <div key={g.title} style={{ marginTop: 28 }}>
+          <h3 className="heading-md">{g.title}</h3>
+          <div className="grid grid-3" style={{ marginTop: 16 }}>
+            {g.people.map((p) => (
+              <Card key={p.name} person={p} />
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </section>
   );
 }

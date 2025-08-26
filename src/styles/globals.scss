@@ -105,8 +105,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow-x: hidden; /* no horizontal scroll unless intended */
-  overflow-y: hidden; /* disable vertical scroll */
+  overflow: hidden; /* stop vertical scrolling entirely */
 }
 
 #root {
@@ -157,12 +156,18 @@ img {
   align-items: flex-start;
 }
 
-/* The section inside each panel should fill the panel and have top padding */
 .panel > .section {
   width: 100%;
-  height: 100%;
-  padding-top: clamp(24px, 6vh, 64px); /* adjust to taste */
-  padding-bottom: clamp(16px, 4vh, 32px);
+  min-height: 100%;
+  height: auto;
+
+  /* NEW: turn into a column layout */
+  display: flex;
+  flex-direction: column;
+
+  /* keep your top/bottom padding */
+  padding-top: clamp(24px, 6vh, 64px);
+  // padding-bottom: clamp(16px, 4vh, 32px);
 }
 
 .section--tight {
@@ -423,21 +428,31 @@ img {
 }
 
 .footer {
+  margin-top: auto; /* pins to bottom when content is short */
   border-top: 1px solid var(--ring);
   background: rgba(0, 0, 0, 0.35);
+  // padding-top: clamp(12px, 2vh, 20px); /* visual gap from last content */
 }
 .footer__row {
   display: flex;
-  flex-direction: column;
-  gap: 18px;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
 }
-@media (min-width: 900px) {
-  .footer__row {
-    flex-direction: row;
-    align-items: center;
-  }
+/* Links block with proper spacing */
+.footer__links {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* <-- puts space between “Privacy Policy” and “Terms” */
+}
+.footer__links a {
+  white-space: nowrap; /* prevent wrapping like 'Privacy\nPolicy' */
+  text-decoration: none;
+  color: #cbd3e2;
+}
+.footer__links a:hover {
+  color: #fff;
 }
 .footer a {
   color: #cbd3e2;
@@ -452,8 +467,16 @@ img {
   position: relative;
 }
 
+/* Make the inner carousel keep its own scroll instead of handing it to the page */
 .embla__viewport {
   overflow: hidden;
+  overscroll-behavior: contain; /* keep wheel/touch inside here */
+  touch-action: pan-y; /* allow vertical gestures (for nested contexts), but not horizontal handoff */
+}
+
+/* When the carousel sits inside the horizontal pager, this further prevents hijacking */
+.hscroll .embla__viewport {
+  touch-action: pan-y;
 }
 
 .embla__container {
@@ -523,35 +546,41 @@ img {
   background: var(--brand-purple);
 }
 
-/* ===== Horizontal pager ===== */
+/* Horizontal pager container */
 .hscroll {
-  /* takes the viewport below the sticky nav */
-  height: calc(100vh - var(--nav-h));
+  height: calc(100dvh - var(--nav-h)); /* full viewport height minus nav */
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: hidden; /* always horizontal only */
   display: flex;
+  flex-wrap: nowrap;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  gap: 0; /* panels touch each other */
-
-  /* Avoid accidental text selection while “paging” */
-  user-select: none;
+  -webkit-overflow-scrolling: touch; /* iOS momentum */
+  gap: 0; /* no gaps between panels */
 }
 
+/* Each panel fills full viewport, stacks content then footer */
 .panel {
   flex: 0 0 100vw;
-  height: calc(100vh - var(--nav-h));
+  min-height: calc(
+    100dvh - var(--nav-h)
+  ); /* use min-height so tall content can grow */
+  height: auto;
   scroll-snap-align: start;
   position: relative;
-  isolation: isolate; /* keeps your hero bg layering working */
-  display: block; /* each panel can hold a normal .section layout */
+  isolation: isolate;
+
+  display: flex; /* <-- back to flex */
+  flex-direction: column; /* content then footer */
+  overflow-y: auto; /* vertical scroll lives here */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 /* Let panels carry your existing section paddings */
 .panel .section {
   padding-top: clamp(16px, 4vh, 32px);
-  padding-bottom: clamp(16px, 4vh, 32px);
+  // padding-bottom: clamp(16px, 4vh, 32px);
 }
 
 /* Dots (if you want them) */
@@ -576,18 +605,74 @@ img {
   background: var(--brand-purple);
 }
 
-/* ===== Mobile fallback: go back to vertical ===== */
+/* Remove vertical override — always horizontal */
 @media (max-width: 1024px) {
   .hscroll {
-    height: auto;
-    overflow: visible;
-    display: block;
-    scroll-snap-type: none;
+    height: calc(100dvh - var(--nav-h));
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
   }
   .panel {
-    flex: none;
-    width: 100%;
-    height: auto;
-    scroll-snap-align: unset;
+    flex: 0 0 100vw;
+    height: calc(100dvh - var(--nav-h));
+    overflow-y: auto;
+  }
+}
+
+#team {
+  margin-bottom: 28px;
+}
+
+/* ===== Products – vertical list on mobile, 3-up grid on desktop ===== */
+.products {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+  margin-top: 16px;
+}
+
+@media (min-width: 980px) {
+  .products {
+    gap: 22px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.product-card {
+  border: 1px solid var(--ring);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-kind {
+  align-self: flex-start;
+  font-size: 12px;
+  line-height: 1;
+  padding: 6px 10px;
+  border: 1px solid var(--ring);
+  border-radius: 999px;
+  color: #cdd4e5;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.product-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(16px, 2.2vw, 20px);
+  line-height: 1.25;
+  color: var(--text);
+}
+
+/* (Optional) hover flourish on desktop */
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
   }
 }
