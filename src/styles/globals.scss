@@ -1165,76 +1165,85 @@ $embla-gap: 18px;
   border: 0;
 }
 
-/* --- Socials --- */
+/* Socials */
 .socials {
+  margin-top: clamp(16px, 4vw, 32px);
+  margin-bottom: clamp(32px, 6vw, 48px); /* <-- new space before footer */
   text-align: center;
-  padding: 2rem 1rem;
-
-  &__title {
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    color: var(--ink-900);
-  }
-
-  &__icons {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  &__link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    will-change: transform;
-  }
-
-  /* The actual icon rectangle that we paint with our gradient */
-  &__icon {
-    --size: 28px;
-
-    inline-size: var(--size);
-    block-size: var(--size);
-    display: inline-block;
-
-    /* Paint with your brand gradient */
-    background: var(--brand-gradient);
-
-    /* Use the SVG as a mask so we can color it however we want */
-    -webkit-mask: var(--si-src) no-repeat center / contain;
-    mask: var(--si-src) no-repeat center / contain;
-
-    /* If the first URL fails, this kicks in as a fallback */
-    -webkit-mask-image: var(--si-src), var(--si-fallback);
-    mask-image: var(--si-src), var(--si-fallback);
-  }
-
-  &__link:hover .socials__icon {
-    transform: scale(1.12);
-  }
 }
 
+.socials__row {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 28px);
+}
+
+.socials__title {
+  font-weight: 700;
+  color: var(--ink-800);
+  margin-bottom: 10px;
+}
+
+/* Bigger, consistent tap targets */
+.socials__a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: clamp(38px, 4vw, 44px);
+  block-size: clamp(38px, 4vw, 44px);
+  border-radius: 999px;
+  line-height: 0; /* fixes baseline wobble */
+  outline: none;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.socials__a:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(88, 8, 251, 0.15);
+}
+
+.socials__a:focus-visible {
+  box-shadow: 0 0 0 3px rgba(153, 41, 234, 0.3);
+}
+
+/* Masked icons (Facebook/X/TikTok/Instagram) */
 .socials__icon {
-  --size: 28px;
+  --size: clamp(22px, 3vw, 28px);
   inline-size: var(--size);
   block-size: var(--size);
   display: inline-block;
 
+  /* brand gradient fill */
   background: var(--brand-gradient);
 
+  /* simple-icons mask */
   -webkit-mask: var(--si-src) no-repeat center / contain;
   mask: var(--si-src) no-repeat center / contain;
 
+  /* fallback to avoid empty paint if mask fails */
   -webkit-mask-image: var(--si-src), var(--si-fallback);
   mask-image: var(--si-src), var(--si-fallback);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: contain;
   mask-size: contain;
+}
+
+/* Inline SVG (LinkedIn) inherits size from wrapper for perfect match */
+.socials__icon-svg {
+  width: clamp(22px, 3vw, 28px);
+  height: clamp(22px, 3vw, 28px);
+  display: inline-block;
+}
+
+/* Reduced motion – keep it calm for those who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .socials__a {
+    transition: none;
+  }
+  .socials__a:hover {
+    transform: none;
+    box-shadow: none;
+  }
 }
