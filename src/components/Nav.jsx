@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
+import clsx from "clsx";
+
+import { createPortal } from "react-dom";
+
 const NAV = [
   { id: "cursos", label: "Cursos" },
   { id: "maestrias", label: "Maestrías" },
@@ -12,6 +16,18 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const sheetRef = useRef(null);
   const firstLinkRef = useRef(null);
+
+  useEffect(() => {
+    // lock/unlock body scroll while the sheet is open
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   const close = () => setOpen(false);
   const go = (id) => {
@@ -129,12 +145,10 @@ export default function Nav() {
 
           {/* Mobile hamburger */}
           <button
-            className={`nav__burger ${open ? "is-open" : ""}`}
-            aria-label="Abrir menú"
+            className="nav__burger"
             aria-expanded={open}
-            aria-controls="navsheet"
-            onClick={() => setOpen(!open)}
-            type="button"
+            aria-controls="nav-sheet"
+            onClick={() => setOpen((v) => !v)}
           >
             <span />
             <span />
@@ -142,83 +156,60 @@ export default function Nav() {
           </button>
         </div>
       </div>
-
-      {/* Mobile sheet */}
-      <div
-        className={`navsheet ${open ? "is-open" : ""}`}
-        id="navsheet"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Navegación"
-      >
-        <button
-          className="navsheet__backdrop"
-          aria-label="Cerrar"
-          onClick={close}
-        />
-        <div className="navsheet__panel" ref={sheetRef}>
-          <div className="navsheet__header container">
-            <a
-              className="nav__brand"
-              href="/#"
-              onClick={(e) => {
-                e.preventDefault();
-                go("home");
-              }}
-              aria-label="Ir al inicio"
-            >
-              <img
-                src="https://firebasestorage.googleapis.com/v0/b/spranger-ventures.appspot.com/o/RushAcademy%2Frush_academy_nav_logo.png?alt=media&token=646f545e-aecb-4218-ac7d-98f5f2e6a2a2"
-                alt="RushAcademy"
-                height="50"
-              />
-            </a>
-            <button
-              className="navsheet__close"
-              aria-label="Cerrar menú"
-              onClick={close}
-            >
-              ✕
-            </button>
-          </div>
-
-          <nav className="navsheet__links container" aria-label="Móvil">
-            {NAV.map((item, i) => (
-              <button
-                key={item.id}
-                ref={i === 0 ? firstLinkRef : undefined}
-                className="navsheet__link"
-                onClick={() => go(item.id)}
-                type="button"
-              >
-                <span>{item.label}</span>
-                <i className="navsheet__underline" />
-              </button>
-            ))}
-          </nav>
-
-          {/* Mobile actions */}
+      {createPortal(
+        <>
           <div
-            className="container nav__mActions"
-            style={{ padding: "1rem 0 1.25rem" }}
+            className={clsx("nav__overlay", { "is-open": open })}
+            onClick={() => setOpen(false)}
+          />
+          <div
+            className={clsx("nav__sheet", { "is-open": open })}
+            role="dialog"
+            aria-modal="true"
           >
-            <a
-              href="#login"
-              className="btn btn--outline"
-              onClick={(e) => e.preventDefault()}
-            >
-              Inicia sesión
-            </a>
-            <a
-              href="#signup"
-              className="btn"
-              onClick={(e) => e.preventDefault()}
-            >
-              Empieza gratis
-            </a>
+            {/* NEW: sticky sheet header with close */}
+            <div className="nav__sheetHeader">
+              <span />{" "}
+              {/* spacer to balance layout; keep empty or put small brand if you want */}
+              <button
+                className="nav__close"
+                aria-label="Cerrar"
+                onClick={() => setOpen(false)}
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="nav__sheetInner">
+              <button className="nav__mLink" onClick={() => go("cursos")}>
+                Cursos
+              </button>
+              <button className="nav__mLink" onClick={() => go("maestrias")}>
+                Maestrías
+              </button>
+              <button className="nav__mLink" onClick={() => go("precios")}>
+                Precios
+              </button>
+              <button className="nav__mLink" onClick={() => go("empresas")}>
+                Empresas
+              </button>
+              <button className="nav__mLink" onClick={() => go("nosotros")}>
+                Nosotros
+              </button>
+            </div>
+
+            <div className="nav__mActions">
+              <a href="/#" className="btn btn--outline">
+                Inicia sesión
+              </a>
+              <a href="/#" className="btn">
+                Empieza gratis
+              </a>
+            </div>
           </div>
-        </div>
-      </div>
+        </>,
+        document.body
+      )}
     </header>
   );
 }

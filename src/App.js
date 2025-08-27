@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 
 import Hero from "./components/Hero";
-import Products from "./components/Products";
+// import Products from "./components/Products";
 import "./styles/globals.scss";
 import Nav from "./components/Nav";
+import CourseCarousel from "./components/CourseCarousel";
 
 export default function App() {
   useEffect(() => {
@@ -23,7 +24,8 @@ export default function App() {
     <>
       <Nav />
       <Hero />
-      <Products />
+      {/* <Products /> */}
+      <CourseCarousel />
     </>
   );
 }

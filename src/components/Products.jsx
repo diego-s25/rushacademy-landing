@@ -1,56 +1,41 @@
 import useEmblaCarousel from "embla-carousel-react";
-import { useEffect, useState } from "react";
+import Autoplay from "embla-carousel-autoplay";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
-const CARDS = [
-  {
-    title: "Carrera Universitaria en Blockchain + Tokenización",
-    desc: "Forma parte de la primera generación de profesionales Web3 en LATAM con doble titulación en tokenización.",
-  },
-  {
-    title: "Maestrías Especializadas",
-    desc: "Programas de posgrado en Blockchain, Tokenización y Marketing Web3, con módulos de IA aplicada.",
-  },
-  {
-    title: "Cursos Intensivos (12–24 semanas)",
-    desc: "Capacitación práctica en smart contracts, tokenización, ciberseguridad, marketing Web3 y más.",
-  },
-  {
-    title: "Capacitación Ejecutiva",
-    desc: "Diseñada para directivos y líderes que buscan integrar blockchain y tokenización en sus empresas.",
-  },
+/** Academic catalog — one topic per card */
+const TOPICS = [
+  "📚 Fundamentos de Blockchain & Web3",
+  "💻 Contratos Inteligentes con Solidity",
+  "🪙 Tokenización de Activos Reales",
+  "📈 Marketing Estratégico para Proyectos Blockchain",
+  "🤖 Blockchain + Inteligencia Artificial",
+  "🔐 Auditoría de Contratos y Seguridad Web3",
+  "🛡️ Ciberseguridad para Protocolos Blockchain",
+  "🧩 DAO & Gobernanza Digital",
 ];
 
-// small helper to render the card once (used in both grid and mobile)
-function Card({ item, i }) {
-  return (
-    <motion.article
-      className="ccard"
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-      transition={{ duration: 0.35, delay: i * 0.04 }}
-    >
-      <header className="ccard__hd">
-        <span className="ccard__dot" aria-hidden="true" />
-        <span className="ccard__title">{item.title}</span>
-      </header>
-      <div className="ccard__thumb" aria-hidden="true" />
-      <p className="ccard__desc">{item.desc}</p>
-    </motion.article>
-  );
-}
-
 export default function Products() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [viewportRef] = useEmblaCarousel({ loop: false, align: "start" });
+  const autoplay = useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
+  );
+
+  const [viewportRef, embla] = useEmblaCarousel(
+    {
+      loop: true,
+      align: "start",
+      dragFree: false,
+      slidesToScroll: 1,
+    },
+    [autoplay.current]
+  );
 
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 1024);
-    onResize();
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    return () => autoplay.current && autoplay.current.destroy;
   }, []);
+
+  const scrollPrev = () => embla && embla.scrollPrev();
+  const scrollNext = () => embla && embla.scrollNext();
 
   return (
     <section
@@ -59,29 +44,62 @@ export default function Products() {
       aria-labelledby="products-title"
     >
       <div className="container">
-        {/* Desktop / large screens: 4-up grid (no carousel) */}
-        {!isMobile && (
-          <div className="ccards ccards--grid">
-            {CARDS.map((c, i) => (
-              <Card key={i} item={c} i={i} />
-            ))}
-          </div>
-        )}
+        <h2
+          id="products-title"
+          className="heading-lg"
+          style={{ textAlign: "center" }}
+        >
+          Oferta Académica
+        </h2>
 
-        {/* Mobile / tablet: Embla carousel */}
-        {isMobile && (
-          <div className="ccards ccards--mobile embla">
-            <div className="embla__viewport" ref={viewportRef}>
-              <div className="embla__container">
-                {CARDS.map((c, i) => (
-                  <div className="embla__slide" key={i}>
-                    <Card item={c} i={i} />
-                  </div>
-                ))}
-              </div>
+        <div className="embla embla--catalog">
+          <div className="embla__viewport" ref={viewportRef}>
+            <div className="embla__container">
+              {TOPICS.map((title, i) => (
+                <div className="embla__slide embla__slide--card" key={title}>
+                  <motion.article
+                    className="ccard"
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+                    transition={{ duration: 0.35, delay: (i % 4) * 0.05 }}
+                  >
+                    <header className="ccard__hd">
+                      <span className="ccard__dot" aria-hidden="true" />
+                      <span className="ccard__title">{title}</span>
+                    </header>
+
+                    <div className="ccard__thumb" aria-hidden="true" />
+
+                    {/* Optional: keep a compact line to hint outcomes */}
+                    <p className="ccard__desc">
+                      Programa práctico con enfoque en casos reales de Web3 y
+                      tokenización.
+                    </p>
+                  </motion.article>
+                </div>
+              ))}
             </div>
           </div>
-        )}
+
+          {/* Nav arrows */}
+          <button
+            className="embla__btn embla__btn--prev"
+            type="button"
+            aria-label="Anterior"
+            onClick={scrollPrev}
+          >
+            ‹
+          </button>
+          <button
+            className="embla__btn embla__btn--next"
+            type="button"
+            aria-label="Siguiente"
+            onClick={scrollNext}
+          >
+            ›
+          </button>
+        </div>
       </div>
     </section>
   );
