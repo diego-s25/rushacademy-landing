@@ -424,7 +424,7 @@ body {
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.02;
-  font-size: clamp(2.2rem, 7vw, 5rem);
+  font-size: clamp(2.2rem, 7vw, 3rem);
   color: var(--ink-900);
   margin: 0 0 0.6rem;
 }
@@ -1218,4 +1218,23 @@ $embla-gap: 18px;
   &__link:hover .socials__icon {
     transform: scale(1.12);
   }
+}
+
+.socials__icon {
+  --size: 28px;
+  inline-size: var(--size);
+  block-size: var(--size);
+  display: inline-block;
+
+  background: var(--brand-gradient);
+
+  -webkit-mask: var(--si-src) no-repeat center / contain;
+  mask: var(--si-src) no-repeat center / contain;
+
+  -webkit-mask-image: var(--si-src), var(--si-fallback);
+  mask-image: var(--si-src), var(--si-fallback);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }

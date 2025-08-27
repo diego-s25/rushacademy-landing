@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 
 const NAV = [
   { id: "cursos", label: "Cursos" },
+  { id: "carreras", label: "Carreras" },
   { id: "maestrias", label: "Maestrías" },
   { id: "precios", label: "Precios" },
   { id: "empresas", label: "Empresas" },
@@ -183,6 +184,9 @@ export default function Nav() {
             <div className="nav__sheetInner">
               <button className="nav__mLink" onClick={() => go("cursos")}>
                 Cursos
+              </button>
+              <button className="nav__mLink" onClick={() => go("cursos")}>
+                Carreras
               </button>
               <button className="nav__mLink" onClick={() => go("maestrias")}>
                 Maestrías
