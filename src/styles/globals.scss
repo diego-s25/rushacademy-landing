@@ -1,4 +1,3 @@
-/* Aktiv Grotesk – served from /public/fonts */
 @font-face {
   font-family: "Aktiv Grotesk";
   src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-Regular.ttf")
@@ -7,14 +6,7 @@
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: "Aktiv Grotesk";
-  src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-Italic.ttf")
-    format("truetype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
+
 @font-face {
   font-family: "Aktiv Grotesk";
   src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-Medium.ttf")
@@ -23,14 +15,7 @@
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: "Aktiv Grotesk";
-  src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-Light.ttf")
-    format("truetype");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
+
 @font-face {
   font-family: "Aktiv Grotesk";
   src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-Bold.ttf")
@@ -39,667 +24,581 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Aktiv Grotesk";
-  src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-BoldItalic.ttf")
+  src: url("../../public/fonts/aktivgrotesk/AktivGrotesk-Black.ttf")
     format("truetype");
-  font-weight: 700;
-  font-style: italic;
+  font-weight: 900;
+  font-style: normal;
   font-display: swap;
-}
-/* Add other weights (Thin, XBold, Black…) the same way if you’ll use them */
-
-:root {
-  /* Base */
-  --ink: #0a0b10;
-  --text: #e8ebf0;
-  --muted: #a8b0c0;
-
-  /* Spacing & layout */
-  --max: 1200px;
-  --gutter: 24px;
-  --radius: 14px;
-  --space-xl: 120px;
-  --space-lg: 88px;
-  --space-md: 56px;
-  --space-sm: 28px;
-
-  /* Brand */
-  --brand-dark: #373737;
-  --brand-purple: #9929ea;
-  --brand-blue: #5808fb;
-
-  /* UI */
-  --ring: rgba(255, 255, 255, 0.1);
-  --card: rgba(255, 255, 255, 0.05);
-
-  /* Gradients */
-  --brand-gradient: linear-gradient(
-    90deg,
-    var(--brand-purple),
-    var(--brand-blue)
-  );
-  --brand-bg-gradient: linear-gradient(
-    180deg,
-    rgba(153, 41, 234, 0.16) 0%,
-    rgba(88, 8, 251, 0.12) 28%,
-    rgba(10, 11, 16, 1) 70%
-  );
-
-  /* Light theme */
-  --light-bg: #ffffff;
-  --light-ink: #0e0f14;
-  --light-muted: #6b7280;
-  --light-ring: rgba(0, 0, 0, 0.08);
-  --light-card: #ffffff;
-
-  --nav-h: 64px; /* matches .nav__row height */
-}
-
-* {
-  box-sizing: border-box;
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden; /* stop vertical scrolling entirely */
+  font-family: "Aktiv Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  color: #0f172a; // or your $ink-900 variable
+  background: #fff;
 }
 
-#root {
-  height: 100%;
+/* ===== HERO ===== */
+.hero {
+  padding-top: clamp(56px, 8vw, 96px);
+  padding-bottom: clamp(16px, 5vw, 24px);
+  text-align: center;
+  background: #fff;
 }
-
-html {
-  scroll-behavior: smooth;
+.hero__wrap {
+  max-width: 980px;
+  margin-inline: auto;
 }
-body {
-  margin: 0;
-  background: var(--ink);
-  color: var(--text);
-  font-family: "Aktiv Grotesk", Inter, ui-sans-serif, system-ui, -apple-system,
-    Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-}
-img {
-  max-width: 100%;
-  display: block;
-}
-
-.container {
-  width: 100%;
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-}
-/* Full-viewport is controlled by .panel, not .section */
-.section {
-  /* reset the “tall & centered” layout */
-  height: auto;
-  min-height: 0;
-  margin: 0;
-  padding: 0;
-  display: block; /* no flex centering here */
-}
-
-/* Panels are the full-page slides */
-.panel {
-  flex: 0 0 100vw;
-  height: calc(100vh - var(--nav-h));
-  scroll-snap-align: start;
-  position: relative;
-  isolation: isolate;
-
-  /* Align content to the top of the viewport */
-  display: flex;
-  align-items: flex-start;
-}
-
-.panel > .section {
-  width: 100%;
-  min-height: 100%;
-  height: auto;
-
-  /* NEW: turn into a column layout */
-  display: flex;
-  flex-direction: column;
-
-  /* keep your top/bottom padding */
-  padding-top: clamp(24px, 6vh, 64px);
-  // padding-bottom: clamp(16px, 4vh, 32px);
-}
-
-.section--tight {
-  padding: var(--space-md) 0;
-}
-.section--divider {
-  border-top: 1px solid var(--ring);
-}
-
-.section-dark {
-  background-color: var(--brand-dark);
-  color: #fff;
-}
-
-.accent-text {
-  color: var(--brand-purple);
-}
-
-.heading-xl {
-  font-size: clamp(32px, 5vw, 56px);
-  line-height: 1.08;
+.hero__title {
   font-weight: 800;
-  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  font-size: clamp(2.2rem, 7vw, 5rem);
+  color: #0f172a;
+  margin: 0 0 0.6rem;
 }
-.heading-lg {
-  font-size: clamp(28px, 4vw, 44px);
-  line-height: 1.12;
-  font-weight: 800;
-  margin: 0;
-}
-.heading-md {
-  font-size: 22px;
-  line-height: 1.2;
-  font-weight: 700;
-  margin: 0;
-}
-.subtle {
-  color: var(--muted);
-}
-.lead {
-  font-size: 18px;
-  color: #cfd5e0;
-  max-width: 680px;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 14px 22px;
-  border-radius: 999px;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  overflow: hidden;
-  border: none;
-}
-
-.btn--primary {
+.hero__gradient {
   background: var(--brand-gradient);
-  color: #fff;
-  background-clip: border-box;
-  transition: opacity 0.2s ease-in-out;
-}
-.btn--primary:hover {
-  opacity: 0.9;
-}
-.btn--ghost {
-  border-color: var(--ring);
-  color: #fff;
-  background: transparent;
-}
-.btn--ghost:hover {
-  background: rgba(255, 255, 255, 0.06);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.card {
-  background: var(--card);
-  border: 1px solid var(--ring);
-  border-radius: var(--radius);
-  padding: 22px;
+.hero__sub {
+  margin: 0 auto 1.25rem;
+  max-width: 64ch;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  color: #475569;
 }
-.card:hover {
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+.hero__ctas {
+  display: inline-flex;
+  gap: 0.75rem;
 }
 
-.grid {
+/* ===== CATEGORY SCROLLER ===== */
+.catScroller {
+  padding-block: clamp(12px, 3vw, 20px);
+  background: #fff;
+}
+.catRow {
   display: grid;
-  gap: 22px;
-}
-.grid-2 {
-  grid-template-columns: 1fr;
-}
-.grid-3 {
-  grid-template-columns: 1fr;
-}
-.grid-5 {
-  grid-template-columns: 1fr;
-}
-@media (min-width: 860px) {
-  .grid-2 {
-    grid-template-columns: 1fr 1fr;
+  grid-auto-flow: column;
+  grid-auto-columns: 80%;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+  @media (min-width: 768px) {
+    grid-auto-columns: 38%;
+  }
+  @media (min-width: 1024px) {
+    grid-auto-columns: 24%;
   }
 }
-@media (min-width: 980px) {
-  .grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .grid-5 {
-    grid-template-columns: repeat(5, 1fr);
-  }
+.catRow > * {
+  scroll-snap-align: start;
+}
+.catCard {
+  color: #fff;
+  border-radius: 16px;
+  padding: 12px;
+  min-height: 260px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+.catCard__hd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+.catCard__badge {
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+.catCard__thumb {
+  margin-top: 8px;
+  border-radius: 12px;
+  background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.05)
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.2) 0 12px,
+      transparent 12px 24px
+    );
 }
 
+/* NAV */
 .nav {
   position: sticky;
   top: 0;
-  width: 100%;
-  z-index: 1000;
+  z-index: 60;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--ink-100);
+  transition: transform 0.35s ease;
 }
+
+.nav--hidden {
+  transform: translateY(-100%);
+}
+
 .nav__row {
-  height: var(--nav-h);
+  height: 80px; /* match CryptoRush proportions (taller bar) */
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 3rem; /* breathing room between brand, links, actions */
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 2rem; /* add left/right breathing */
 }
-/* Style both anchors and our button links the same */
-.nav a,
-.nav__link {
-  color: #d0d6e4;
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--brand-ink);
   text-decoration: none;
-  font-size: 14px;
 }
 
-/* Reset default button look and keep your pill design */
-.nav__link {
-  background: transparent; /* remove default gray button bg */
-  border: none; /* remove default button border  */
-  appearance: none; /* reset native button styling   */
-  -webkit-appearance: none;
-  font: inherit;
-  line-height: 1;
-  padding: 10px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: color 160ms ease, background 160ms ease, box-shadow 200ms ease;
-}
-
-.nav__link:hover {
-  color: #fff;
-}
-
-/* Your existing active pill/glow/underline will now apply to buttons too */
-.nav__link.is-active {
-  color: #fff;
-  background: color-mix(in srgb, var(--brand-purple) 16%, transparent);
-  box-shadow: inset 0 0 0 1px var(--ring), 0 8px 24px rgba(153, 41, 234, 0.22);
-}
-.nav__link::after {
-  content: "";
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 6px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--brand-gradient);
-  opacity: 0;
-  transform: scaleX(0.4) translateZ(0);
-  transform-origin: center;
-  transition: opacity 220ms ease, transform 240ms ease;
-}
-.nav__link.is-active::after {
-  opacity: 1;
-  transform: scaleX(1) translateZ(0);
-}
-
-/* Keep the row layout tight */
-.nav__row {
-  height: var(--nav-h);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 .nav__links {
-  display: flex;
-  gap: 12px;
-  align-items: center;
+  display: none;
+  gap: 2.25rem; /* extra horizontal space between items */
+  @media (min-width: 1024px) {
+    display: flex;
+  }
 }
-
-.hero {
-  position: relative;
-  isolation: isolate;
-  min-height: calc(100vh - var(--nav-h)); /* full viewport minus sticky nav */
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  /* keep a little breathing room without exceeding 100vh */
-  padding-block: clamp(16px, 4vh, 32px) 0; /* top padding only, no bottom */
-}
-.hero__bg {
-  .hero__bg {
-    position: absolute;
-    inset: 0;
-    z-index: -1; /* <-- key: push behind */
-    pointer-events: none;
-
-    /* your metlabs-like gradient */
-    background: linear-gradient(
-      180deg,
-      rgba(10, 11, 16, 1) 0%,
-      rgba(25, 8, 51, 1) 25%,
-      rgba(88, 8, 251, 0.6) 70%,
-      rgba(153, 41, 234, 0.75) 100%
-    );
+.nav__link {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--ink-700);
+  transition: color 0.2s ease;
+  &:hover {
+    color: var(--brand-ink);
   }
 }
 
-.hero__bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    60% 80% at 50% 100%,
-    rgba(153, 41, 234, 0.4),
-    transparent 80%
-  );
-}
-
-.logo-pill {
-  height: 40px;
-  border: 1px solid var(--ring);
-  border-radius: 10px;
-  background: var(--card);
-  display: grid;
-  place-items: center;
-  color: #b9c2d4;
-}
-
-.form input,
-.form textarea {
-  width: 100%;
-  border: 1px solid var(--ring);
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-  border-radius: 8px;
-  padding: 14px 16px;
-  outline: none;
-}
-.form input::placeholder,
-.form textarea::placeholder {
-  color: #9aa3b5;
-}
-.form input:focus,
-.form textarea:focus {
-  box-shadow: 0 0 0 2px rgba(153, 41, 234, 0.35); /* purple glow */
-}
-
-.footer {
-  margin-top: auto; /* pins to bottom when content is short */
-  border-top: 1px solid var(--ring);
-  background: rgba(0, 0, 0, 0.35);
-  // padding-top: clamp(12px, 2vh, 20px); /* visual gap from last content */
-}
-.footer__row {
+.nav__actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 0;
-}
-/* Links block with proper spacing */
-.footer__links {
-  display: flex;
-  align-items: center;
-  gap: 16px; /* <-- puts space between “Privacy Policy” and “Terms” */
-}
-.footer__links a {
-  white-space: nowrap; /* prevent wrapping like 'Privacy\nPolicy' */
-  text-decoration: none;
-  color: #cbd3e2;
-}
-.footer__links a:hover {
-  color: #fff;
-}
-.footer a {
-  color: #cbd3e2;
-  text-decoration: none;
-}
-.footer a:hover {
-  color: #fff;
+  gap: 1rem; /* space between Register / Login buttons */
 }
 
-/* ==== Products carousel (Embla) ==== */
+/* ===== CATEGORY SCROLLER (Embla) ===== */
+.catScroller {
+  padding-block: clamp(12px, 3vw, 20px);
+  background: #fff;
+}
+
+/* Embla required structure */
 .embla {
   position: relative;
 }
-
-/* Make the inner carousel keep its own scroll instead of handing it to the page */
 .embla__viewport {
   overflow: hidden;
-  overscroll-behavior: contain; /* keep wheel/touch inside here */
-  touch-action: pan-y; /* allow vertical gestures (for nested contexts), but not horizontal handoff */
 }
-
-/* When the carousel sits inside the horizontal pager, this further prevents hijacking */
-.hscroll .embla__viewport {
-  touch-action: pan-y;
-}
-
 .embla__container {
-  display: flex;
-  gap: 22px; /* matches your grid gap */
+  display: flex; /* IMPORTANT for Embla loop */
+  gap: 16px;
 }
-
 .embla__slide {
-  flex: 0 0 85%;
-  min-width: 0;
-}
-
-@media (min-width: 900px) {
-  .embla__slide {
-    /* show 3 cards per view on desktop */
-    flex: 0 0 calc((100% - 2 * 22px) / 3);
+  flex: 0 0 82%; /* mobile width */
+  @media (min-width: 768px) {
+    flex-basis: 40%;
+  }
+  @media (min-width: 1024px) {
+    flex-basis: 24%;
   }
 }
 
-/* Make product cards stretch and look like your grid cards */
-.card--product {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-/* Arrows */
-.embla__prev,
-.embla__next {
+/* Nav arrows */
+.embla__btn {
   position: absolute;
-  top: -56px; /* put arrows in the header area; tweak if you prefer inline */
+  top: 50%;
+  transform: translateY(-50%);
   width: 40px;
   height: 40px;
   border-radius: 999px;
+  border: 1px solid var(--ink-200);
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12);
   display: grid;
   place-items: center;
-  padding: 0;
+  font-size: 20px;
+}
+.embla__btn--prev {
+  left: 6px;
+}
+.embla__btn--next {
+  right: 6px;
+}
+.embla__btn[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
-.embla__prev {
-  right: 64px;
-}
-.embla__next {
-  right: 16px;
-}
-
-/* Dots */
-.embla__dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.embla__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--ring);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-.embla__dot--active {
-  background: var(--brand-purple);
-}
-
-/* Horizontal pager container */
-.hscroll {
-  height: calc(100dvh - var(--nav-h)); /* full viewport height minus nav */
-  overflow-x: auto;
-  overflow-y: hidden; /* always horizontal only */
-  display: flex;
-  flex-wrap: nowrap;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch; /* iOS momentum */
-  gap: 0; /* no gaps between panels */
-}
-
-/* Each panel fills full viewport, stacks content then footer */
-.panel {
-  flex: 0 0 100vw;
-  min-height: calc(
-    100dvh - var(--nav-h)
-  ); /* use min-height so tall content can grow */
-  height: auto;
-  scroll-snap-align: start;
-  position: relative;
-  isolation: isolate;
-
-  display: flex; /* <-- back to flex */
-  flex-direction: column; /* content then footer */
-  overflow-y: auto; /* vertical scroll lives here */
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: contain;
-}
-
-/* Let panels carry your existing section paddings */
-.panel .section {
-  padding-top: clamp(16px, 4vh, 32px);
-  // padding-bottom: clamp(16px, 4vh, 32px);
-}
-
-/* Dots (if you want them) */
-.hscroll__dots {
-  position: fixed;
-  left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-  z-index: 60;
-}
-.hscroll__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  border: none;
-  background: var(--ring);
-  cursor: pointer;
-}
-.hscroll__dot.is-active {
-  background: var(--brand-purple);
-}
-
-/* Remove vertical override — always horizontal */
-@media (max-width: 1024px) {
-  .hscroll {
-    height: calc(100dvh - var(--nav-h));
-    display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    overscroll-behavior-x: contain;
-  }
-  .panel {
-    flex: 0 0 100vw;
-    height: calc(100dvh - var(--nav-h));
-    overflow-y: auto;
-  }
-}
-
-#team {
-  margin-bottom: 28px;
-}
-
-/* ===== Products – vertical list on mobile, 3-up grid on desktop ===== */
-.products {
+/* Card visuals unchanged */
+.catCard {
+  color: #fff;
+  border-radius: 16px;
+  padding: 12px;
+  min-height: 260px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
   display: grid;
-  gap: 16px;
-  grid-template-columns: 1fr;
-  margin-top: 16px;
+  grid-template-rows: auto 1fr;
 }
-
-@media (min-width: 980px) {
-  .products {
-    gap: 22px;
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.product-card {
-  border: 1px solid var(--ring);
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 18px;
+.catCard__hd {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 8px;
-}
-
-.product-kind {
-  align-self: flex-start;
-  font-size: 12px;
-  line-height: 1;
-  padding: 6px 10px;
-  border: 1px solid var(--ring);
-  border-radius: 999px;
-  color: #cdd4e5;
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.product-title {
-  margin: 0;
   font-weight: 700;
-  font-size: clamp(16px, 2.2vw, 20px);
-  line-height: 1.25;
-  color: var(--text);
+}
+.catCard__badge {
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+.catCard__thumb {
+  margin-top: 8px;
+  border-radius: 12px;
+  background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.05)
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.2) 0 12px,
+      transparent 12px 24px
+    );
 }
 
-/* (Optional) hover flourish on desktop */
-@media (hover: hover) and (pointer: fine) {
-  .product-card:hover {
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
-  }
-}
-
-/* ===== Top bar (shared) ===== */
+/* ===== NAV (Canva-like: text links centered, compact bar) ===== */
 .nav {
   position: sticky;
   top: 0;
-  z-index: 1000;
-  backdrop-filter: blur(10px);
-  background: rgba(0, 0, 0, 0.35);
-  border-bottom: 1px solid var(--ring);
-}
-.nav__row {
-  height: var(--nav-h);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.nav__brand img {
-  display: block;
+  z-index: 60;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid transparent;
 }
 
+.nav__row {
+  height: 64px; /* a touch shorter */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+}
+
+/* Brand (left) */
+.nav__brand {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink-900);
+  text-decoration: none;
+}
+.nav__logo {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--brand-600), var(--brand-700));
+  color: #fff;
+}
+.nav__brandText {
+  color: var(--ink-900);
+  font-size: 17px;
+}
+
+/* Center menu — plain text links (NOT pills) */
+.nav__links {
+  justify-self: center;
+  display: none;
+  gap: 28px; /* even rhythm across */
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+}
+.nav__link {
+  all: unset; /* strip button styles */
+  cursor: pointer;
+  color: var(--ink-800);
+  font-weight: 400;
+  line-height: 1;
+}
+.nav__link:hover {
+  color: var(--ink-900);
+}
+.nav__link:focus-visible {
+  outline: 2px solid rgba(99, 91, 255, 0.45);
+  outline-offset: 2px;
+}
+
+/* Right actions */
+.nav__actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.nav__auth {
+  text-decoration: none;
+}
+
+/* Make auth buttons compact for header */
+.nav .btn {
+  padding: 0.5rem 0.8rem;
+  font-weight: 400;
+}
+.nav .btn:not(.btn--outline) {
+  background: var(--brand-gradient);
+  border: none;
+  color: #fff;
+}
+
+/* Burger (mobile only) */
+.nav__burger {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ink-200);
+  border-radius: 0.5rem;
+  background: #fff;
+  span {
+    width: 18px;
+    height: 2px;
+    background: var(--ink-700);
+    border-radius: 2px;
+  }
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+.nav__auth {
+  display: none;
+  @media (min-width: 1024px) {
+    display: inline-flex;
+  }
+}
+
+/* Mobile sheet */
+.nav__sheet {
+  background: #fff;
+  border-bottom: 1px solid var(--ink-100);
+  overflow: hidden;
+}
+.nav__sheetInner {
+  display: grid;
+  gap: 0.25rem;
+  padding-block: 0.5rem;
+}
+.nav__mLink {
+  text-align: left;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--ink-100);
+  color: var(--ink-800);
+  background: none;
+  border: none;
+  width: 100%;
+  font: inherit;
+}
+.nav__mActions {
+  display: grid;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+/* Remove default anchor styles inside the nav */
+.nav a {
+  text-decoration: none;
+}
+
+/* Nav auth buttons — match Canva vibe */
+.nav .btn {
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 400;
+}
+.nav .btn.btn--outline {
+  background: #fff;
+  color: var(--ink-900);
+  border: 1px solid var(--ink-300);
+}
+
+/* Hero primary CTA */
+.btn--primary {
+  background: var(--brand-gradient);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.9rem 1.15rem;
+  font-weight: 800;
+  box-shadow: 0 6px 20px rgba(88, 8, 251, 0.35); /* shadow tinted to brand */
+}
+.btn--primary:hover {
+  filter: brightness(1.05);
+}
+
+/* ===== Brand tokens (from your guide) ===== */
+:root {
+  --brand-ink: #373737;
+  --brand-g1: #9929ea;
+  --brand-g2: #5808fb;
+
+  /* gradient shortcut */
+  --brand-gradient: linear-gradient(
+    90deg,
+    var(--brand-g1) 0%,
+    var(--brand-g2) 100%
+  );
+}
+
+/* ===== Academic Channels section ===== */
+.ccardsSection {
+  background: #fff;
+  padding-block: clamp(28px, 6vw, 56px);
+}
+
+.ccards {
+  margin-top: 14px;
+}
+
+/* Desktop / large screens: 4 across */
+.ccards--grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  @media (max-width: 1279px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (max-width: 1023px) {
+    display: none;
+  }
+}
+
+/* Mobile Embla (only shows <1024px) */
+.ccards--mobile {
+  display: none;
+  @media (max-width: 1023px) {
+    display: block;
+  }
+}
+.embla__viewport {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+  gap: 14px;
+}
+.embla__slide {
+  flex: 0 0 86%;
+}
+
+/* ===== Canva-style card (originalized to brand) ===== */
+.ccard {
+  position: relative;
+  color: var(--brand-ink);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.02))
+      padding-box,
+    linear-gradient(135deg, var(--brand-g1), var(--brand-g2)) border-box; /* 2px gradient border */
+  border: 2px solid transparent;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 12px 30px rgba(16, 24, 40, 0.12);
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 10px;
+}
+
+/* Header label row */
+.ccard__hd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  background: var(--brand-gradient);
+  color: #fff;
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+.ccard__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  border: 2px solid #fff;
+  background: transparent;
+  display: inline-block;
+}
+.ccard__title {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+/* Inner preview area with diagonal stripes */
+.ccard__thumb {
+  height: clamp(120px, 18vw, 180px);
+  border-radius: 14px;
+  background: repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.27) 0 14px,
+      rgba(255, 255, 255, 0.12) 14px 28px
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.05)
+    );
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.25);
+}
+
+/* Description area */
+.ccard__desc {
+  margin: 0;
+  padding: 0 6px 10px 6px;
+  font-size: 0.95rem;
+  color: var(--brand-ink);
+}
+
+/* Tighten card on very small screens */
+@media (max-width: 400px) {
+  .ccard__title {
+    font-size: 0.9rem;
+  }
+  .ccard__desc {
+    font-size: 0.9rem;
+  }
+}
+
+/* Desktop nav links only visible ≥1024px */
 .nav__links--desktop {
   display: none;
-  gap: 12px;
-  align-items: center;
 }
 @media (min-width: 1024px) {
   .nav__links--desktop {
@@ -707,194 +606,12 @@ img {
   }
 }
 
-.nav__link {
-  position: relative;
-  padding: 10px 14px;
-  border-radius: 999px;
-  color: #cdd4e5;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: color 0.18s ease, background 0.18s ease, box-shadow 0.22s ease;
-}
-.nav__link:hover {
-  color: #fff;
-}
-.nav__link.is-active {
-  color: #fff;
-  background: color-mix(in srgb, var(--brand-purple) 16%, transparent);
-  box-shadow: inset 0 0 0 1px var(--ring), 0 8px 24px rgba(153, 41, 234, 0.22);
-}
-
-/* ===== Hamburger ===== */
-.nav__burger {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--ring);
-  cursor: pointer;
-  transition: background 0.25s ease, transform 0.2s ease;
-}
-.nav__burger:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.05);
-}
-
-.nav__burger span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  border-radius: 2px;
-  background: #fff;
-  transition: all 0.3s ease;
-}
-
-/* Animate into an X */
-.nav__burger.is-open span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
-}
-.nav__burger.is-open span:nth-child(2) {
-  opacity: 0;
-}
-.nav__burger.is-open span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
-}
-@media (min-width: 1024px) {
-  .nav__burger {
-    display: none;
-  }
-}
-
-/* ===== Fullscreen sheet ===== */
+/* Mobile sheet should never show on desktop */
 .navsheet {
-  position: fixed;
-  inset: 0;
-  z-index: 1100;
-  pointer-events: none;
+  display: none;
 }
-.navsheet__backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-/* Solid, non-transparent menu sheet + comfy side padding */
-.navsheet__panel {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-
-  /* 🚫 remove translucency & blur */
-  background: linear-gradient(
-    180deg,
-    #0a0b10 0%,
-    #0b0c12 60%
-  ); /* or var(--ink) */
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-
-  border-bottom: 1px solid var(--ring);
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.45);
-  transform: translate3d(0, -100%, 0);
-  transition: transform 0.34s cubic-bezier(0.22, 0.9, 0.24, 1);
-
-  max-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  /* ✅ left/right breathing room */
-  padding-inline: 0;
-}
-
-/* You can keep a backdrop if you like the dimming effect,
-   but it’s not required for readability anymore. */
-.navsheet__backdrop {
-  background: rgba(
-    0,
-    0,
-    0,
-    0.45
-  ); /* ok to keep dim, doesn’t affect menu clarity */
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.navsheet.is-open .navsheet__panel {
-  transform: translate3d(0, 0, 0);
-}
-.navsheet.is-open .navsheet__backdrop {
-  opacity: 1;
-}
-
-.navsheet__header {
-  height: var(--nav-h);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.navsheet__close {
-  border: none;
-  background: transparent;
-  color: #e8ebf0;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-.navsheet__links {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 8px var(--gutter) 4px;
-  padding-bottom: var(--gutter);
-}
-.navsheet__link {
-  width: 100%;
-  text-align: left;
-  color: #e8ebf0;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--ring);
-  border-radius: 14px;
-  padding: 16px 18px;
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.2px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-.navsheet__link:hover {
-  background: rgba(255, 255, 255, 0.06);
-}
-.navsheet__underline {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 10px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--brand-gradient);
-  opacity: 0;
-  transform: scaleX(0.4);
-  transition: opacity 0.22s ease, transform 0.24s ease;
-}
-.navsheet__link:focus-visible .navsheet__underline,
-.navsheet__link:hover .navsheet__underline {
-  opacity: 1;
-  transform: scaleX(1);
-}
-
-/* Make links big & airy on small screens only */
-@media (min-width: 480px) {
-  .navsheet__link {
-    font-size: 18px;
-    padding: 18px 20px;
+@media (max-width: 1023px) {
+  .navsheet {
+    display: block;
   }
 }

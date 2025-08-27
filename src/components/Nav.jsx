@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
 const NAV = [
-  { id: "products", label: "Productos & Servicios" },
-  { id: "companies", label: "Empresas" },
-  { id: "academy", label: "Academy" },
-  { id: "team", label: "Team Rush" },
-  { id: "contact", label: "Contacto" },
+  { id: "cursos", label: "Cursos" },
+  { id: "maestrias", label: "Maestrías" },
+  { id: "precios", label: "Precios" },
+  { id: "empresas", label: "Empresas" },
+  { id: "nosotros", label: "Nosotros" },
 ];
 
 export default function Nav() {
@@ -16,24 +16,22 @@ export default function Nav() {
   const close = () => setOpen(false);
   const go = (id) => {
     close();
-    // Give the sheet time to close before scrolling
     requestAnimationFrame(() => {
       if (typeof window.__scrollToPanel === "function") {
         window.__scrollToPanel(id);
       } else {
-        // fallback — anchor within the section
-        const el = document.getElementById(id);
-        el?.scrollIntoView({ behavior: "smooth", block: "start" });
+        document
+          .getElementById(id)
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     });
   };
 
-  // Lock body scroll when open + focus trap
+  // lock body + focus first item when open
   useEffect(() => {
     const prev = document.body.style.overflow;
     if (open) {
       document.body.style.overflow = "hidden";
-      // move focus to first link for a11y
       setTimeout(() => firstLinkRef.current?.focus(), 50);
     } else {
       document.body.style.overflow = prev || "";
@@ -41,21 +39,19 @@ export default function Nav() {
     return () => (document.body.style.overflow = prev || "");
   }, [open]);
 
-  // ESC to close
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && setOpen(false);
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
-  // Swipe-down to close (nice-to-have)
+  // swipe-down to close on mobile
   useEffect(() => {
     if (!open) return;
     const el = sheetRef.current;
     if (!el) return;
-    let startY = 0;
-    let moved = 0;
-
+    let startY = 0,
+      moved = 0;
     const onStart = (e) => {
       startY = e.touches?.[0]?.clientY ?? 0;
       moved = 0;
@@ -63,16 +59,13 @@ export default function Nav() {
     const onMove = (e) => {
       const y = e.touches?.[0]?.clientY ?? 0;
       moved = y - startY;
-      // Pull sheet down slightly for feedback
-      if (moved > 0) {
+      if (moved > 0)
         el.style.transform = `translate3d(0, ${Math.min(moved, 80)}px, 0)`;
-      }
     };
     const onEnd = () => {
       el.style.transform = "";
       if (moved > 60) setOpen(false);
     };
-
     el.addEventListener("touchstart", onStart, { passive: true });
     el.addEventListener("touchmove", onMove, { passive: true });
     el.addEventListener("touchend", onEnd);
@@ -94,39 +87,60 @@ export default function Nav() {
             e.preventDefault();
             go("home");
           }}
+          aria-label="Ir al inicio"
         >
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/spranger-ventures.appspot.com/o/CryptoRush%2Fcryptorush_logo.png?alt=media&token=28dd84d1-4d99-483e-b9f5-9048d867b480"
-            alt="CryptoRush"
-            height="28"
+            src="https://firebasestorage.googleapis.com/v0/b/spranger-ventures.appspot.com/o/RushAcademy%2Frush_academy_nav_logo.png?alt=media&token=646f545e-aecb-4218-ac7d-98f5f2e6a2a2"
+            alt="RushAcademy"
+            height="50"
           />
         </a>
 
-        {/* Desktop links */}
-        <nav className="nav__links nav__links--desktop" aria-label="Primary">
+        {/* Center menu (desktop) */}
+        <nav className="nav__links nav__links--desktop" aria-label="Principal">
           {NAV.map((item) => (
             <button
               key={item.id}
               className="nav__link"
               onClick={() => go(item.id)}
+              type="button"
             >
               {item.label}
             </button>
           ))}
         </nav>
 
-        {/* Mobile hamburger */}
-        <button
-          className={`nav__burger ${open ? "is-open" : ""}`}
-          aria-label="Open menu"
-          aria-expanded={open}
-          aria-controls="navsheet"
-          onClick={() => setOpen(!open)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        {/* Right actions (desktop) */}
+        <div className="nav__actions">
+          <a
+            href="#login"
+            className="btn btn--outline nav__auth"
+            onClick={(e) => e.preventDefault()}
+          >
+            Inicia sesión
+          </a>
+          <a
+            href="#signup"
+            className="btn nav__auth" /* gradient brand purple via globals.scss */
+            onClick={(e) => e.preventDefault()}
+          >
+            Empieza gratis
+          </a>
+
+          {/* Mobile hamburger */}
+          <button
+            className={`nav__burger ${open ? "is-open" : ""}`}
+            aria-label="Abrir menú"
+            aria-expanded={open}
+            aria-controls="navsheet"
+            onClick={() => setOpen(!open)}
+            type="button"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
       </div>
 
       {/* Mobile sheet */}
@@ -139,7 +153,7 @@ export default function Nav() {
       >
         <button
           className="navsheet__backdrop"
-          aria-label="Close"
+          aria-label="Cerrar"
           onClick={close}
         />
         <div className="navsheet__panel" ref={sheetRef}>
@@ -151,35 +165,58 @@ export default function Nav() {
                 e.preventDefault();
                 go("home");
               }}
+              aria-label="Ir al inicio"
             >
               <img
-                src="https://firebasestorage.googleapis.com/v0/b/spranger-ventures.appspot.com/o/CryptoRush%2Fcryptorush_logo.png?alt=media&token=28dd84d1-4d99-483e-b9f5-9048d867b480"
-                alt="CryptoRush"
-                height="28"
+                src="https://firebasestorage.googleapis.com/v0/b/spranger-ventures.appspot.com/o/RushAcademy%2Frush_academy_nav_logo.png?alt=media&token=646f545e-aecb-4218-ac7d-98f5f2e6a2a2"
+                alt="RushAcademy"
+                height="50"
               />
             </a>
             <button
               className="navsheet__close"
-              aria-label="Close menu"
+              aria-label="Cerrar menú"
               onClick={close}
             >
               ✕
             </button>
           </div>
 
-          <nav className="navsheet__links container" aria-label="Mobile">
+          <nav className="navsheet__links container" aria-label="Móvil">
             {NAV.map((item, i) => (
               <button
                 key={item.id}
                 ref={i === 0 ? firstLinkRef : undefined}
                 className="navsheet__link"
                 onClick={() => go(item.id)}
+                type="button"
               >
                 <span>{item.label}</span>
                 <i className="navsheet__underline" />
               </button>
             ))}
           </nav>
+
+          {/* Mobile actions */}
+          <div
+            className="container nav__mActions"
+            style={{ padding: "1rem 0 1.25rem" }}
+          >
+            <a
+              href="#login"
+              className="btn btn--outline"
+              onClick={(e) => e.preventDefault()}
+            >
+              Inicia sesión
+            </a>
+            <a
+              href="#signup"
+              className="btn"
+              onClick={(e) => e.preventDefault()}
+            >
+              Empieza gratis
+            </a>
+          </div>
         </div>
       </div>
     </header>

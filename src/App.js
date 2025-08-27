@@ -1,65 +1,29 @@
-// src/App.js
-import "./styles/globals.scss";
+import { useEffect } from "react";
 
-import Nav from "./components/Nav";
-import HorizontalPager from "./components/HorizontalPager";
 import Hero from "./components/Hero";
 import Products from "./components/Products";
-import Companies from "./components/Companies";
-import Academy from "./components/Academy";
-import Team from "./components/TeamRush";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-
-const PANELS = ["home", "products", "companies", "academy", "team", "contact"];
+import "./styles/globals.scss";
+import Nav from "./components/Nav";
 
 export default function App() {
+  useEffect(() => {
+    const NAV_HEIGHT = 72;
+    window.__scrollToPanel = (id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    };
+    return () => {
+      delete window.__scrollToPanel;
+    };
+  }, []);
+
   return (
     <>
       <Nav />
-      <HorizontalPager ids={PANELS} className="horizontal-scroll" id="pager">
-        <section className="panel" id="home" data-panel-id="home">
-          <div className="section" id="home">
-            <Hero />
-            <Footer />
-          </div>
-        </section>
-
-        <section className="panel" id="products" data-panel-id="products">
-          <div className="section" id="products">
-            <Products />
-            <Footer />
-          </div>
-        </section>
-
-        <section className="panel" id="companies" data-panel-id="companies">
-          <div className="section" id="companies">
-            <Companies />
-            <Footer />
-          </div>
-        </section>
-
-        <section className="panel" data-panel-id="academy">
-          <div className="section" id="academy">
-            <Academy />
-            <Footer />
-          </div>
-        </section>
-
-        <section className="panel" id="team" data-panel-id="team">
-          <div className="section" id="team">
-            <Team />
-            <Footer />
-          </div>
-        </section>
-
-        <section className="panel" id="contact" data-panel-id="contact">
-          <div className="section" id="contact">
-            <Contact />
-            <Footer />
-          </div>
-        </section>
-      </HorizontalPager>
+      <Hero />
+      <Products />
     </>
   );
 }

@@ -1,47 +1,87 @@
-// src/components/Products.jsx
-// NOTE: Uses only the customer-provided titles. No descriptions are added.
+import useEmblaCarousel from "embla-carousel-react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
-const ITEMS = [
-  // Keep exactly what you already have (titles/kinds from the “new bible” doc)
-  // Examples:
-  { kind: "Producto", title: "WRush Wallet" },
-  { kind: "Producto", title: "Tokenización de Activos Físicos" },
-  { kind: "Servicio", title: "SaaS (Software as a Service)" },
+const CARDS = [
   {
-    kind: "Servicio",
-    title: "Desarrollo y posicionamiento de productos blockchain",
+    title: "Carrera Universitaria en Blockchain + Tokenización",
+    desc: "Forma parte de la primera generación de profesionales Web3 en LATAM con doble titulación en tokenización.",
   },
   {
-    kind: "Servicio",
-    title: "Asesoria y consultoria técnica de productos blockchain",
+    title: "Maestrías Especializadas",
+    desc: "Programas de posgrado en Blockchain, Tokenización y Marketing Web3, con módulos de IA aplicada.",
   },
   {
-    kind: "Servicio",
-    title: "Asesoria y consultoria legal de productos blockchain",
+    title: "Cursos Intensivos (12–24 semanas)",
+    desc: "Capacitación práctica en smart contracts, tokenización, ciberseguridad, marketing Web3 y más.",
   },
   {
-    kind: "Servicio",
-    title: "Asesoria y consultoria de mercadeo de productos blockchain",
+    title: "Capacitación Ejecutiva",
+    desc: "Diseñada para directivos y líderes que buscan integrar blockchain y tokenización en sus empresas.",
   },
-  // …include the rest of your customer-provided items here
 ];
 
-export default function Products() {
+// small helper to render the card once (used in both grid and mobile)
+function Card({ item, i }) {
   return (
-    <section id="products" className="container">
-      <h2 className="heading-xl">Productos &amp; Servicios</h2>
+    <motion.article
+      className="ccard"
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+      transition={{ duration: 0.35, delay: i * 0.04 }}
+    >
+      <header className="ccard__hd">
+        <span className="ccard__dot" aria-hidden="true" />
+        <span className="ccard__title">{item.title}</span>
+      </header>
+      <div className="ccard__thumb" aria-hidden="true" />
+      <p className="ccard__desc">{item.desc}</p>
+    </motion.article>
+  );
+}
 
-      <div className="products">
-        {ITEMS.map((item) => (
-          <article className="product-card" key={item.title}>
-            {item.kind && (
-              <span className="product-kind" aria-label="Tipo">
-                {item.kind}
-              </span>
-            )}
-            <h3 className="product-title">{item.title}</h3>
-          </article>
-        ))}
+export default function Products() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [viewportRef] = useEmblaCarousel({ loop: false, align: "start" });
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 1024);
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  return (
+    <section
+      className="ccardsSection"
+      id="products"
+      aria-labelledby="products-title"
+    >
+      <div className="container">
+        {/* Desktop / large screens: 4-up grid (no carousel) */}
+        {!isMobile && (
+          <div className="ccards ccards--grid">
+            {CARDS.map((c, i) => (
+              <Card key={i} item={c} i={i} />
+            ))}
+          </div>
+        )}
+
+        {/* Mobile / tablet: Embla carousel */}
+        {isMobile && (
+          <div className="ccards ccards--mobile embla">
+            <div className="embla__viewport" ref={viewportRef}>
+              <div className="embla__container">
+                {CARDS.map((c, i) => (
+                  <div className="embla__slide" key={i}>
+                    <Card item={c} i={i} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
