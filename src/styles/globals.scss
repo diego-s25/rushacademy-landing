@@ -676,3 +676,225 @@ img {
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
   }
 }
+
+/* ===== Top bar (shared) ===== */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid var(--ring);
+}
+.nav__row {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav__brand img {
+  display: block;
+}
+
+.nav__links--desktop {
+  display: none;
+  gap: 12px;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .nav__links--desktop {
+    display: flex;
+  }
+}
+
+.nav__link {
+  position: relative;
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: #cdd4e5;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease, box-shadow 0.22s ease;
+}
+.nav__link:hover {
+  color: #fff;
+}
+.nav__link.is-active {
+  color: #fff;
+  background: color-mix(in srgb, var(--brand-purple) 16%, transparent);
+  box-shadow: inset 0 0 0 1px var(--ring), 0 8px 24px rgba(153, 41, 234, 0.22);
+}
+
+/* ===== Hamburger ===== */
+.nav__burger {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--ring);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+.nav__burger:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+.nav__burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+/* Animate into an X */
+.nav__burger.is-open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.nav__burger.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.nav__burger.is-open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+@media (min-width: 1024px) {
+  .nav__burger {
+    display: none;
+  }
+}
+
+/* ===== Fullscreen sheet ===== */
+.navsheet {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  pointer-events: none;
+}
+.navsheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+/* Solid, non-transparent menu sheet + comfy side padding */
+.navsheet__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  /* 🚫 remove translucency & blur */
+  background: linear-gradient(
+    180deg,
+    #0a0b10 0%,
+    #0b0c12 60%
+  ); /* or var(--ink) */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  border-bottom: 1px solid var(--ring);
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.45);
+  transform: translate3d(0, -100%, 0);
+  transition: transform 0.34s cubic-bezier(0.22, 0.9, 0.24, 1);
+
+  max-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  /* ✅ left/right breathing room */
+  padding-inline: 0;
+}
+
+/* You can keep a backdrop if you like the dimming effect,
+   but it’s not required for readability anymore. */
+.navsheet__backdrop {
+  background: rgba(
+    0,
+    0,
+    0,
+    0.45
+  ); /* ok to keep dim, doesn’t affect menu clarity */
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.navsheet.is-open .navsheet__panel {
+  transform: translate3d(0, 0, 0);
+}
+.navsheet.is-open .navsheet__backdrop {
+  opacity: 1;
+}
+
+.navsheet__header {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navsheet__close {
+  border: none;
+  background: transparent;
+  color: #e8ebf0;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.navsheet__links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px var(--gutter) 4px;
+  padding-bottom: var(--gutter);
+}
+.navsheet__link {
+  width: 100%;
+  text-align: left;
+  color: #e8ebf0;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--ring);
+  border-radius: 14px;
+  padding: 16px 18px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.navsheet__link:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.navsheet__underline {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--brand-gradient);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition: opacity 0.22s ease, transform 0.24s ease;
+}
+.navsheet__link:focus-visible .navsheet__underline,
+.navsheet__link:hover .navsheet__underline {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* Make links big & airy on small screens only */
+@media (min-width: 480px) {
+  .navsheet__link {
+    font-size: 18px;
+    padding: 18px 20px;
+  }
+}

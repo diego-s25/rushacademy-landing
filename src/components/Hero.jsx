@@ -28,7 +28,7 @@ export default function Hero() {
                   </a>
                   <span style={{ display: "inline-block", width: 10 }} />
                   <a href="#contacto" className="btn btn--ghost">
-                    Contáctanos
+                    Agenda asesoría
                   </a>
                 </div>
 
