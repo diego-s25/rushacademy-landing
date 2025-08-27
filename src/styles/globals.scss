@@ -864,47 +864,63 @@ $embla-gap: 18px;
 }
 
 /* Modalidad Académica */
+/* globals.scss */
+
+/* Modality Section */
 .modalitySection {
-  padding-bottom: clamp(24px, 6vw, 56px);
+  padding: 3rem 1rem;
+  padding-top: 0px;
   text-align: center;
-}
 
-.modalityCards {
-  display: grid;
-  gap: 18px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  margin-top: 1.5rem;
-}
+  h2 {
+    font-weight: 800;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
 
-.modalityCard {
-  background: #fff;
-  border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  padding: 1rem; /* reduced from 1.5rem 1rem */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem; /* tighter spacing */
-  text-align: center;
-}
+  .modalityCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
 
-.modalityIcon {
-  width: 50px; /* smaller icon */
-  height: 50px;
-  object-fit: contain;
-  margin-bottom: 0.25rem; /* small spacing under icon */
-}
+  .modalityCard {
+    background: #fff;
+    border: 1px solid var(--ink-100);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s ease;
 
-.modalityCard h3 {
-  margin: 0;
-  font-size: 1.05rem;
-}
+    &:hover {
+      transform: translateY(-4px);
+    }
 
-.modalityCard p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #475569;
+    .modalityIcon {
+      width: 64px; /* increase this size */
+      height: 64px; /* square shape */
+      object-fit: contain;
+    }
+
+    h3 {
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin: 0.25rem 0;
+      margin-top: 1rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: var(--ink-700);
+      margin: 0;
+    }
+  }
 }
 
 //
@@ -916,73 +932,84 @@ $embla-gap: 18px;
   // shrinks to 1rem on small screens, grows up to 2rem on large
 }
 
-/* ===== Impact mosaic ===== */
-.impact {
-  background: #fff;
-  padding-bottom: clamp(24px, 6vw, 56px);
-}
-
-.impact__head {
-  margin-bottom: clamp(12px, 3vw, 20px);
-}
-
-.sectionTitle {
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--ink-900);
-  font-size: clamp(1.25rem, 3.6vw, 1.75rem);
+/* === Impacts section === */
+.impacts {
+  padding-block: clamp(28px, 6vw, 56px);
+  padding-top: 0px;
   text-align: center;
 }
 
-.impact__grid {
+.impacts__head {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 800;
+  margin-bottom: clamp(20px, 4vw, 32px);
+}
+
+.impacts__grid {
   display: grid;
-  gap: 16px;
-  grid-template-columns: 1fr;
-  @media (min-width: 640px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  grid-template-columns: repeat(4, 1fr);
+
+  @media (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr);
   }
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
   }
 }
 
-.impact__card {
+.impacts__card {
   background: #fff;
-  border: 1px solid rgba(15, 23, 42, 0.06);
   border-radius: 16px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  padding: clamp(14px, 2.4vw, 18px);
-  min-height: 100%;
-  display: grid;
-  gap: 8px;
+  padding: 18px;
+  text-align: left;
 }
 
-.impact__icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  font-size: 22px;
-  color: #fff;
-  background: var(--brand-gradient);
-  box-shadow: 0 6px 16px rgba(88, 8, 251, 0.25);
+.impacts__iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
-.impact__title {
-  font-weight: 700;
-  color: var(--ink-900);
+.impacts__icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 14px;
 }
 
-.impact__desc {
+@media (max-width: 640px) {
+  .impacts__icon {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+.impacts__title {
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.impacts__desc {
+  font-size: 0.95rem;
   color: #475569;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 /* ===== Pricing (plans style) ===== */
 .pricing {
   background: #fff;
   padding-bottom: clamp(28px, 6vw, 56px);
+}
+
+.pricing h2 {
+  font-weight: 800;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  text-align: center;
 }
 
 .pricing__head {
@@ -1028,12 +1055,15 @@ $embla-gap: 18px;
   font-weight: 800;
   font-size: 1.15rem;
   color: var(--ink-900);
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .pricing__desc {
   color: var(--ink-700);
   flex-grow: 1;
   line-height: 1.45;
+  margin-top: 0px;
 }
 
 .pricing__cta {
@@ -1246,4 +1276,34 @@ $embla-gap: 18px;
     transform: none;
     box-shadow: none;
   }
+}
+
+/* ===== Pricing plan icons ===== */
+.pricing__iconWrap {
+  display: grid;
+  place-items: center;
+  margin-bottom: 14px;
+
+  /* subtle glow for the icon container */
+  filter: drop-shadow(0 8px 24px rgba(88, 8, 251, 0.12));
+}
+
+.pricing__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  object-fit: cover; /* works for raster icons hosted on Firebase */
+  background: #fff;
+  border: 2px solid transparent;
+  /* ring effect with your brand gradient */
+  background-image: linear-gradient(#fff, #fff),
+    linear-gradient(90deg, var(--brand-g1), var(--brand-g2));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+/* Slightly larger icon on the highlighted plan */
+.pricing__card.is-highlight .pricing__icon {
+  width: 60px;
+  height: 60px;
 }
