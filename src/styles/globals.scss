@@ -863,6 +863,50 @@ $embla-gap: 18px;
   }
 }
 
+/* Modalidad Académica */
+.modalitySection {
+  padding: clamp(28px, 6vw, 56px) 1rem;
+  text-align: center;
+}
+
+.modalityCards {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 1.5rem;
+}
+
+.modalityCard {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  padding: 1rem; /* reduced from 1.5rem 1rem */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem; /* tighter spacing */
+  text-align: center;
+}
+
+.modalityIcon {
+  width: 50px; /* smaller icon */
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 0.25rem; /* small spacing under icon */
+}
+
+.modalityCard h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.modalityCard p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
 //
 
 .container {
