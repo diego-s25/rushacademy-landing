@@ -7,6 +7,9 @@ import CourseCarousel from "./components/CourseCarousel";
 import ExecSummary from "./components/ExecSummary";
 import Modality from "./components/Modality";
 import ImpactMosaic from "./components/ImpactMosaic";
+import PricingPlans from "./components/PricingPlans";
+import FinalCta from "./components/FinalCta";
+import Footer from "./components/Footer";
 
 export default function App() {
   useEffect(() => {
@@ -30,6 +33,9 @@ export default function App() {
       <ExecSummary />
       <Modality />
       <ImpactMosaic />
+      <PricingPlans />
+      <FinalCta />
+      <Footer />
     </>
   );
 }
