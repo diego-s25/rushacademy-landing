@@ -551,24 +551,18 @@ body {
 /* use the same gutter everywhere */
 $embla-gap: 18px;
 
+/* Two-up on mobile, four-up on desktop */
 .embla__slide {
-  flex: 0 0 86%;
+  /* (100% - 1 gap) / 2 → two cards per row */
+  flex: 0 0 calc((100% - #{$embla-gap}) / 2);
   margin-right: $embla-gap;
 
-  /* 2-up at tablet */
-  @media (min-width: 768px) {
-    /* (100% - 1 gap) / 2 */
-    flex-basis: calc((100% - #{$embla-gap}) / 2);
-  }
-
-  /* 4-up at desktop */
+  /* keep 4-up on desktop */
   @media (min-width: 1200px) {
-    /* (100% - 3 gaps) / 4 */
     flex-basis: calc((100% - 3 * #{$embla-gap}) / 4);
   }
 }
 
-/* keep this so the last slide doesn’t leave trailing space */
 .embla__slide:last-child {
   margin-right: 0;
 }
