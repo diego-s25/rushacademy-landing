@@ -779,12 +779,6 @@ $embla-gap: 18px;
   background: #fff;
 }
 
-.exec .container {
-  max-width: 1280px;
-  margin-inline: auto;
-  padding-inline: 2rem; // same as navbar
-}
-
 .exec__grid {
   display: grid;
   gap: 16px;
@@ -823,12 +817,6 @@ $embla-gap: 18px;
 .modality {
   background: #fff;
   padding-bottom: clamp(40px, 7vw, 80px);
-
-  .container {
-    max-width: 1280px;
-    margin-inline: auto;
-    padding-inline: 2rem; // match navbar + exec section
-  }
 
   &__title {
     font-size: clamp(1.6rem, 3vw, 2rem);
@@ -882,3 +870,10 @@ $embla-gap: 18px;
 }
 
 //
+
+.container {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+  // shrinks to 1rem on small screens, grows up to 2rem on large
+}
