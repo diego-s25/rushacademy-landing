@@ -5,6 +5,7 @@ import "./styles/globals.scss";
 import Nav from "./components/Nav";
 import CourseCarousel from "./components/CourseCarousel";
 import ExecSummary from "./components/ExecSummary";
+import Modality from "./components/Modality";
 
 export default function App() {
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function App() {
       <Hero />
       <CourseCarousel />
       <ExecSummary />
+      <Modality />
     </>
   );
 }
