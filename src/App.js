@@ -10,6 +10,7 @@ import ImpactMosaic from "./components/ImpactMosaic";
 import PricingPlans from "./components/PricingPlans";
 import FinalCta from "./components/FinalCta";
 import Footer from "./components/Footer";
+import Socials from "./components/Socials";
 
 export default function App() {
   useEffect(() => {
@@ -35,6 +36,7 @@ export default function App() {
       <ImpactMosaic />
       <PricingPlans />
       <FinalCta />
+      <Socials />
       <Footer />
     </>
   );

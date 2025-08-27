@@ -1151,3 +1151,71 @@ $embla-gap: 18px;
     gap: 12px;
   }
 }
+
+/* A11y helper for visually-hidden text */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Socials --- */
+.socials {
+  text-align: center;
+  padding: 2rem 1rem;
+
+  &__title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--ink-900);
+  }
+
+  &__icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
+  }
+
+  /* The actual icon rectangle that we paint with our gradient */
+  &__icon {
+    --size: 28px;
+
+    inline-size: var(--size);
+    block-size: var(--size);
+    display: inline-block;
+
+    /* Paint with your brand gradient */
+    background: var(--brand-gradient);
+
+    /* Use the SVG as a mask so we can color it however we want */
+    -webkit-mask: var(--si-src) no-repeat center / contain;
+    mask: var(--si-src) no-repeat center / contain;
+
+    /* If the first URL fails, this kicks in as a fallback */
+    -webkit-mask-image: var(--si-src), var(--si-fallback);
+    mask-image: var(--si-src), var(--si-fallback);
+  }
+
+  &__link:hover .socials__icon {
+    transform: scale(1.12);
+  }
+}

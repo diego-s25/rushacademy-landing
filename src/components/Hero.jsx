@@ -13,8 +13,8 @@ export default function Hero() {
         </h1>
 
         <p className="hero__sub">
-          Con Rush Academy puedes aprender, crear y certificarte en Blockchain,
-          Tokenización, Marketing Web3 e Inteligencia Artificial aplicada.
+          Revoluciona tu Potencial: aprende, crea y certifícate con RushAcademy
+          en Blockchain y Web3.
         </p>
 
         <div className="hero__ctas">
