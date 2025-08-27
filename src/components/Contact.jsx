@@ -47,12 +47,18 @@ export default function Contact() {
               style={{ gridTemplateColumns: "1fr 1fr", gap: 28, marginTop: 22 }}
             >
               <div>
-                <h4 className="heading-md" style={{ fontSize: 16 }}>
+                <h4
+                  className="heading-md"
+                  style={{ fontSize: 16, marginBottom: 8 }}
+                >
                   CryptoRush
                 </h4>
                 <a
                   href="tel:+50368534129"
-                  style={{ color: "var(--brand-a)", textDecoration: "none" }}
+                  className="subtle"
+                  style={{
+                    textDecoration: "none",
+                  }}
                 >
                   +503 6853 4129
                 </a>
