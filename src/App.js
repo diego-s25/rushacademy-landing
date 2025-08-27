@@ -6,6 +6,7 @@ import Nav from "./components/Nav";
 import CourseCarousel from "./components/CourseCarousel";
 import ExecSummary from "./components/ExecSummary";
 import Modality from "./components/Modality";
+import ImpactMosaic from "./components/ImpactMosaic";
 
 export default function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function App() {
       <CourseCarousel />
       <ExecSummary />
       <Modality />
+      <ImpactMosaic />
     </>
   );
 }
