@@ -89,7 +89,7 @@ export default function Nav() {
         {/* Logo */}
         <a
           className="nav__brand"
-          href="#"
+          href="/#"
           onClick={(e) => {
             e.preventDefault();
             go("home");
@@ -146,7 +146,7 @@ export default function Nav() {
           <div className="navsheet__header container">
             <a
               className="nav__brand"
-              href="#"
+              href="/#"
               onClick={(e) => {
                 e.preventDefault();
                 go("home");
