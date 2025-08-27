@@ -8,8 +8,8 @@ export default function Hero() {
     <div className="hero">
       <div className="container hero__wrap">
         <h1 className="hero__title" aria-label="Qué vamos a crear hoy">
-          ¿Qué vas a <span className="hero__gradient">construir</span> hoy en
-          Web3?
+          <span className="hero__gradient">Lidera</span> El Futuro con
+          Habilidades en Blockchain
         </h1>
 
         <p className="hero__sub">
